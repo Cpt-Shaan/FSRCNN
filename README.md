@@ -12,8 +12,7 @@ The aim of the project is to implement the **FSRCNN Model** which deals with con
 6. Then we implemented a custom dataloader to extract the raw High Res and Low Res images from the BSD-100 dataser which would be further used as train and test datasets for the implementation of SRCNN and FSRCNN.
 7. We implemented the SRCNN architecture in PyTorch for the BSD-100 dataset, taking reference for the architecture from the following research paper :-
 ["Image Super-Resolution Using Deep Convolutional Networks"](https://arxiv.org/abs/1501.00092).
-8. Finally we implemented the FSRCNN architecture for the same dataset. Reference from the following research paper :-
-   
+8. Finally we implemented the FSRCNN architecture for the same dataset. Reference from the following research paper :- 
 ["Accelerating the Super-Resolution Convolutional Neural Network"](https://arxiv.org/pdf/1608.00367v1.pdf)
 
 ## SRCNN
