@@ -29,7 +29,7 @@ MODEL ARCHITECTURE
 
 <center><img src="./thumbnails/mseloss.png"></center>
 
-However to extract more spatial features and to avoid possible discrepancies in MSE loss due to changed orientation of images , the loss function is added to another loss function called Perceptual Loss. here the target and predicted images are passed through a pre-trained VGG-19 (Image Classification model) upto a certain layer , where the mse loss of the low-level features is added to the original loss function. 
+However to extract more spatial features and to avoid possible discrepancies in MSE loss due to changed orientation of images , the loss function is added to another loss function called Perceptual Loss. here the target and predicted images are passed through a pre-trained VGG-19 / 16 (Image Classification model) upto a certain layer , where the mse loss of the low-level features is added to the original loss function. 
 <center><img src="./thumbnails/perp_loss.png"></center>
 
 ## Results
