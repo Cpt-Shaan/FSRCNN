@@ -22,8 +22,9 @@ MODEL ARCHITECTURE
 
 Algorithm 
 1. The low resolution image is first upscaled to the required size using Bicubic interpolation, which is followed by 3 operations.
-2. **Patch Extraction and Representation**: This operation extracts (overlapping) patches from the upscaled low resolution image (*Y*) and represents each patch as a high-dimensional vector through a 2D convolution operation. Our first layer can be expressed as an operation : **F1(Y) = max (0, W1 ∗ Y + B1)**
+2. **Patch Extraction and Representation**: This operation extracts (overlapping) patches from the upscaled low resolution image (**Y**) and represents each patch as a high-dimensional vector through a 2D convolution operation. Our first layer can be expressed as an operation : **F1(Y) = max (0, W1 ∗ Y + B1)**
 3. **Non-linear mapping**: This operation nonlinearly maps each high-dimensional vector onto another high-dimensional vector. The convolution operation of the second layer is : **F2(Y) = max (0, W2 ∗ F1(Y) + B2)**
 4. **Reconstruction**: This operation aggregates the above high-resolution patch-wise representations to generate the final high-resolution image. This can be represented by a convolutional operation as : **F(Y) = W3 ∗ F2(Y) + B3**
-
-5. **Training**:  
+5. **Training**:  For training the model we calculate the pixel-wise loss between the predicted output (**Y**) and the original high resolution image (**X**). The loss function is given by the Mean Squared Error (MSE) function as :
+   <center><img src="./thumbnails/mse_loss.png"></center>
+   However to extract more spatial features and to avoid possible discrepancies in MSE loss due to changed orientation of images , the loss function is added to another loss function called Perceptual Loss. here the target and predicted images are passed through a pre-trained VGG-19 (Image Classification model) upto a certain layer , where the mse loss of the low-level features is added to the original loss function. 
