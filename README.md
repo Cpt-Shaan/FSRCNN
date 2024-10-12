@@ -13,7 +13,7 @@ The aim of the project is to implement the **FSRCNN Model** which deals with con
 7. We implemented the SRCNN architecture in PyTorch for the BSD-100 dataset, taking reference for the architecture from the following research paper :-
 ["Image Super-Resolution Using Deep Convolutional Networks"](https://arxiv.org/abs/1501.00092).
 8. Finally we implemented the FSRCNN architecture for the same dataset. Reference from the following research paper :-
-https://arxiv.org/pdf/1608.00367v1.pdf
+["Accelerating the Super-Resolution Convolutional Neural Network"](https://arxiv.org/pdf/1608.00367v1.pdf)
 
 ## SRCNN
 
