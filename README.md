@@ -41,4 +41,11 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 ## FSRCNN
 
 MODEL ARCHITECTURE
+<center><img src="./thumbnails/fsrcnn.png"></center>
+
+## Algorithm
+1. FSRCNN can be decomposed into five parts – feature extraction, shrinking, mapping, expanding and deconvolution. The first 4 layers are a convolution operation.
+2. **Feature Extraction**: FSRCNN performs feature extraction on the original LR image without interpolation. This operation can be represented by **Conv(5, d, 1)**.
+3. **Shrinking**: In SRCNN the mapping step has high complexity due to size of the Low-res dimension feature vectors, hence a 1x1 convolution is used to reduce the size of the Low Resolution feature maps. This step can be represented by **Conv(1, s, d)**.
+4. **Non-linear mapping**: 
 
