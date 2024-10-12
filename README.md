@@ -33,3 +33,12 @@ However to extract more spatial features and to avoid possible discrepancies in 
 <center><img src="./thumbnails/perp_loss.png"></center>
 
 ## Results
+Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
+<center><img src="./thumbnails/srcnn_res1.png"></center>
+<center><img src="./thumbnails/srcnn_res2.png"></center>
+<center><img src="./thumbnails/srcnn_res3.png"></center>
+
+## FSRCNN
+
+MODEL ARCHITECTURE
+
