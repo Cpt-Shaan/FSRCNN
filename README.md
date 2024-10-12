@@ -15,3 +15,6 @@ https://arxiv.org/pdf/1501.00092
 8. Finally we implemented the FSRCNN architecture for the same dataset. Reference from the following research paper :-
 https://arxiv.org/pdf/1608.00367v1.pdf
 
+## SRCNN
+
+MODEL ARCHITECTURE
