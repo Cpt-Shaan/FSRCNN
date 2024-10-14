@@ -148,3 +148,15 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 ---
 ---
 
+
+=======
+## Results
+
+## Datasets
+| Dataset  |  Link  |
+|:-------: | :-----:|
+| BSD-100  | ["Click"](https://figshare.com/ndownloader/files/38256840) |
+| Set-5    | ["Click"](https://figshare.com/ndownloader/files/38256852) |
+| Set-14   | ["Click"](https://figshare.com/ndownloader/files/38256855) |
+| Urban100 | ["Click"](https://figshare.com/ndownloader/files/38256858) |
+
