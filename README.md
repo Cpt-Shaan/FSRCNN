@@ -17,7 +17,7 @@ The aim of the project is to implement the **FSRCNN Model** which deals with con
 
 ## SRCNN
 
-MODEL ARCHITECTURE
+### MODEL ARCHITECTURE
 <center><img src="./thumbnails/srcnn.png"></center>
 
 ## Algorithm 
@@ -27,7 +27,7 @@ MODEL ARCHITECTURE
 4. **Reconstruction**: This operation aggregates the above high-resolution patch-wise representations to generate the final high-resolution image. This can be represented by a convolutional operation as : **F(Y) = W3 ∗ F2(Y) + B3**
 5. **Training**:  For training the model we calculate the pixel-wise loss between the predicted output (**Y**) and the original high resolution image (**X**). The loss function is given by the Mean Squared Error (MSE) function as :
 
-<center><img src="./thumbnails/mseloss.png"></center>
+<center> <img src="./thumbnails/mseloss.png"> </center>
 
 However to extract more spatial features and to avoid possible discrepancies in MSE loss due to changed orientation of images , the loss function is added to another loss function called Perceptual Loss. here the target and predicted images are passed through a pre-trained VGG-19 / 16 (Image Classification model) upto a certain layer , where the mse loss of the low-level features is added to the original loss function. 
 <center><img src="./thumbnails/perp_loss.png"></center>
@@ -39,12 +39,16 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 
 ## FSRCNN
 
-MODEL ARCHITECTURE
+### MODEL ARCHITECTURE
 <center><img src="./thumbnails/fsrcnn.png"></center>
 
 ## Algorithm
-1. FSRCNN can be decomposed into five parts – feature extraction, shrinking, mapping, expanding and deconvolution. The first 4 layers are a convolution operation.
+1. FSRCNN can be decomposed into five parts – feature extraction, shrinking, mapping, expanding and deconvolution. The first 4 layers are a convolution operation. The model can be viewed as an Hourglass-like architecture. 
 2. **Feature Extraction**: FSRCNN performs feature extraction on the original LR image without interpolation. This operation can be represented by **Conv(5, d, 1)**.
 3. **Shrinking**: In SRCNN the mapping step has high complexity due to size of the Low-res dimension feature vectors, hence a 1x1 convolution is used to reduce the size of the Low Resolution feature maps. This step can be represented by **Conv(1, s, d)**.
-4. **Non-linear mapping**: 
+4. **Non-linear mapping**: The non-linear mapping step is the most important step which is mainly affected by the no of filters used and depth of the mapping (m). It can be denoted by the convolution operation **m × C onv(3, s, s)**
+5. **Expanding**: This layer is added to invert the effects of shrinking which was mainly added to reduce computational complexity. This layer needs to be used rather than directly reconstructing the High resolution image to avoid poor restoration quality. This step can be represented by **Conv(1, d, s)**.
+6. **Deconvolution**: This layer upsamples and aggregates the previous features with a set of Deconvolution filters (which are basically an inverse operation of convolutions) to generate the final High resolution image. This layer can be represented by as **DeConv(9, 1, d)**.
+7. **Training**: Just as similar to SRCNN , in FSRCNN the loss function can be calcularted through a weighted combination of the pixel-wise MSE loss and the Low-level features based Perceptual Loss calculated using a pre-trained VGG-19 / 16 model.
 
+## Results
