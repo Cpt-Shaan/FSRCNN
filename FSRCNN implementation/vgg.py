@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-# aliter: import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 from torch.utils.data import Dataset, DataLoader

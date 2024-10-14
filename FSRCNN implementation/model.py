@@ -27,16 +27,18 @@ class FSRCNN(nn.Module):
     def __init__(self, scale_factor = 2, num_channels=1, d=56, s=12, m=4):
         super(FSRCNN, self).__init__()
         self.first_part = nn.Sequential(
-            nn.Conv2d(num_channels, d, kernel_size=5, padding=5//2),
+            nn.Conv2d(num_channels, d, kernel_size=5, padding=2),
             nn.PReLU(d)
         )
+        
         self.mid_part = [nn.Conv2d(d, s, kernel_size=1), nn.PReLU(s)]
         for _ in range(m):
-            self.mid_part.extend([nn.Conv2d(s, s, kernel_size=3, padding=3//2), nn.PReLU(s)])
+            self.mid_part.extend([nn.Conv2d(s, s, kernel_size=3, padding=1), nn.PReLU(s)])
         self.mid_part.extend([nn.Conv2d(s, d, kernel_size=1), nn.PReLU(d)])
         self.mid_part = nn.Sequential(*self.mid_part)
         # In Python, the * operator is used for unpacking an iterable (like a list or tuple) into individual elements.
-        self.last_part = nn.ConvTranspose2d(d, num_channels, kernel_size=9, stride=scale_factor, padding=9//2,
+        
+        self.last_part = nn.ConvTranspose2d(d, num_channels, kernel_size=9, stride=scale_factor, padding=4,
                                             output_padding=scale_factor-1)
 
         self._initialize_weights()
@@ -57,6 +59,8 @@ class FSRCNN(nn.Module):
     def forward(self, x):
         x = x/255.0
         x = self.first_part(x)
+
+        # to ease in debugging:
         if torch.isnan(x).any():
             print("NaN detected in first part")
         x = self.mid_part(x)
@@ -65,14 +69,18 @@ class FSRCNN(nn.Module):
         x = self.last_part(x)
         if torch.isnan(x).any():
             print("NaN detected in last part")
+            
         '''
+        As an alternative to min-max normalisation, A modified sigmoid was thougth about, but due to the 
+        problem of vanishing gradient it was discarded:
+        
         # n = 3 might give good results (to tackle the vanishing gradient problem as posed by sigmoid function)
         n = 1
         x = torch.sigmoid(x/n)
         x = x*255.0
         '''
         
-        # min max normalise
+        # min max normalise ( done in a cascading fassion )
         min_values, _ = torch.min(x, dim = -1, keepdim = True)
         min_values, _ = torch.min(min_values, dim = -2, keepdim = True)
         # expected shape: (batch_size, num_channels, 1, 1)

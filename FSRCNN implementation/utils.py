@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-# aliter: import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 from torch.utils.data import Dataset, DataLoader
@@ -25,7 +24,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # input representation conversion
 # source for rgb to ycbcr: https://stackoverflow.com/questions/35595215/conversion-formula-from-rgb-to-ycbcr
-# source for ycbcr to rbg: 
+# source for ycbcr to rbg: https://en.wikipedia.org/wiki/YCbCr
 def convert_rgb_to_y(img, dim_order='chw'):
     
     # ensure that input is batched
@@ -57,7 +56,9 @@ def convert_rgb_to_ycbcr(img, dim_order='chw'):
         cb = 128. + (-37.945 * img[:, 0, :, :] - 74.494 * img[:, 1, :, :] + 112.439 * img[:, 2, :, :]) / 256.
         cr = 128. + (112.439 * img[:, 0, :, :] - 94.154 * img[:, 1, :, :] - 18.285 * img[:, 2, :, :]) / 256.
         # shape of each = (batch_size, height, width)
+    
     return torch.stack([y, cb, cr], dim = 1) # stacks the tensors along the new 1'th dimension so that the final shape becomes (batch_size, 3, h, w)
+    
     # returns 4D tensor
 
 def convert_ycbcr_to_rgb(img, dim_order='chw'):

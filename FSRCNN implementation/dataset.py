@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-# aliter: import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 from torch.utils.data import Dataset, DataLoader
@@ -46,7 +45,8 @@ class SRdatasets(Dataset):
                 num_images = num_images//2
                 for i in range(1, num_images):
                     input_arr, target = self.extract("LR", dir_num, i), self.extract("HR", dir_num, i)
-                    
+
+                    # adding horizontal flip deterministic transform
                     hflip_input = TF.hflip(torch.from_numpy(input_arr))
                     hflip_target = TF.hflip(torch.from_numpy(target))
 
@@ -61,6 +61,7 @@ class SRdatasets(Dataset):
         # returning back to the current directory 
         # this way the flow of rest of the program is not affected        
         os.chdir(script_directory)
+        
         # converting the list of np.arrays into higher dimenstion np.array since list -> tensor conversion is much slower
         input_arr = np.array(input_list)
         target_arr = np.array(target_list)
@@ -91,7 +92,7 @@ class SRdatasets(Dataset):
         npimg = np.array(npimg)
         if len(npimg.shape) == 2:
             npimg = cv2.cvtColor(npimg, cv2.COLOR_GRAY2BGR) 
-        # npimg = npimg.reshape(rows, col, 3)
+        
         return np.transpose(npimg, axes = (2, 0, 1)) # returning in form (num_channels = 3, rows, col)
         
     def __getitem__(self, index):
@@ -100,10 +101,7 @@ class SRdatasets(Dataset):
             return input_data, target_data
             
         if isinstance(index, slice):
-            if random.random() > 1: # instead of deleting the code I have put an impossible condition
-                return torch.stack([TF.hflip(self.input_data[i]) for i in range(*index.indices(len(self)))]), torch.stack([TF.hflip(self.target_data[i]) for i in range(*index.indices(len(self)))])
-            else:
-                return torch.stack([(self.input_data[i]) for i in range(*index.indices(len(self)))]), torch.stack([(self.target_data[i]) for i in range(*index.indices(len(self)))])
+            return torch.stack([(self.input_data[i]) for i in range(*index.indices(len(self)))]), torch.stack([(self.target_data[i]) for i in range(*index.indices(len(self)))])
             # return type: tuple of the form: (tensor of inputs, tensor of targets)
             # shape of each tensor: (size_of_slice, num_channels = 3, height, width)
     
