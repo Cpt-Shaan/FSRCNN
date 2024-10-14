@@ -26,6 +26,7 @@
     - [10. Scalability to Different Scaling Factors](#10-scalability-to-different-scaling-factors)
   - [**Why FSRCNN is Better Than SRCNN**](#why-fsrcnn-is-better-than-srcnn)
 
+---
 ## **Objective**
 The aim of the project is to implement the **FSRCNN Model** which deals with conversion of Low Resolution images to High Resolution images with the help of Convolutional Neural Networks
 
@@ -40,6 +41,8 @@ The aim of the project is to implement the **FSRCNN Model** which deals with con
 ["Image Super-Resolution Using Deep Convolutional Networks"](https://arxiv.org/abs/1501.00092).
 8. Finally, we implemented the FSRCNN architecture for the same dataset. Reference from the following research paper :- 
 ["Accelerating the Super-Resolution Convolutional Neural Network"](https://arxiv.org/pdf/1608.00367v1.pdf)
+
+---
 
 ## **SRCNN**
 
@@ -63,6 +66,8 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 <center><img src="./thumbnails/srcnn_res1.png"></center>
 <center><img src="./thumbnails/srcnn_res2.png"></center>
 
+---
+
 ## **FSRCNN**
 
 ### Model Architecture
@@ -83,6 +88,8 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 
 
 
+
+---
 
 ## **Key Differences Between FSRCNN and SRCNN**
 
@@ -126,7 +133,7 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 - **SRCNN**: Scaling factors (e.g., 2x, 3x, 4x) are predefined, requiring separate models to be trained for each scale.
 - **FSRCNN**: More flexible and can handle multiple scaling factors with a single model, thanks to the internal upsampling layer.
 
----
+
 
 ## **Why FSRCNN is Better Than SRCNN**
 
@@ -137,4 +144,7 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 3. **Better Performance**: FSRCNN delivers better image quality in terms of sharpness and fine details. The internal upscaling and advanced architecture allow it to reconstruct higher-quality images than SRCNN.
 
 4. **Scalability**: FSRCNN is more versatile as it can handle multiple scaling factors with a single model, whereas SRCNN requires different models for different scales.
+
+---
+---
 
