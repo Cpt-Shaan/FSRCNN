@@ -82,15 +82,6 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 6. **Deconvolution**: This layer upsamples and aggregates the previous features with a set of Deconvolution filters (which are basically an inverse operation of convolutions) to generate the final High resolution image. This layer can be represented by as **DeConv(9, 1, d)**.
 7. **Training**: Just as similar to SRCNN , in FSRCNN the loss function can be calculated through a weighted combination of the pixel-wise MSE loss and the Low-level features based Perceptual Loss calculated using a pre-trained VGG-19 / 16 model.
 
-## **Results**
-
-
-
-
-
-
----
-
 ## **Key Differences Between FSRCNN and SRCNN**
 
 ### 1. Network Structure
@@ -146,10 +137,6 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 4. **Scalability**: FSRCNN is more versatile as it can handle multiple scaling factors with a single model, whereas SRCNN requires different models for different scales.
 
 ---
----
-
-
-=======
 ## Results
 
 ## Datasets
