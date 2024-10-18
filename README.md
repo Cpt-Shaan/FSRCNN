@@ -126,7 +126,7 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 
 
 
-## **Why FSRCNN is Better Than SRCNN**
+## **Why is FSRCNN Better Than SRCNN**
 
 1. **Speed**: FSRCNN is significantly faster due to processing lower-resolution images and upscaling within the network. This makes it more suitable for real-time applications.
    
@@ -138,6 +138,11 @@ Results obtained for **f1 = 9 , f2 = 5 , f3 = 5 , n1 = 64 , n2 = 32 , n3 = 3**
 
 ---
 ## Results
+Results obtained compared with input PSNR (**Bicubic Interpolation**)
+<center><img src="./thumbnails/fsrcnn_res1.png"></center>
+<center><img src="./thumbnails/fsrcnn_res2.png"></center>
+<center><img src="./thumbnails/fsrcnn_res3.png"></center>
+<center><img src="./thumbnails/fsrcnn_res4.png"></center>
 
 ## Datasets
 | Dataset  |  Link  |
