@@ -1,6 +1,7 @@
 import streamlit as st
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 import cv2
 from PIL import Image
@@ -55,6 +56,8 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     img_ycbcr = convert_rgb_to_ycbcr(image)
     img_y = img_ycbcr[..., 0] / 255.
+    h, w = img_y.shape[-2:]
+    img_y = F.interpolate(img_y, size=(h * scale_factor, w * scale_factor), mode="bicubic", align_corners=False)
     img_y = torch.tensor(img_y).unsqueeze(0).unsqueeze(0).float()
 
     # Load corresponding model
