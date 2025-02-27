@@ -75,9 +75,12 @@ if uploaded_file is not None:
         img_y = img_y.to(device)
         output = model(img_y).cpu().squeeze().numpy() * 255.
 
-    output_resized = cv2.resize(output, (img_ycbcr.shape[1], img_ycbcr.shape[0]), interpolation=cv2.INTER_CUBIC)
-    img_ycbcr[..., 0] = output_resized
-    img_sr = convert_ycbcr_to_rgb(img_ycbcr)
+    h, w = img_ycbcr.shape[:2]  # Get original image height & width
+    output_resized = cv2.resize(output, (w, h), interpolation=cv2.INTER_CUBIC)  
+    img_ycbcr[..., 0] = output_resized  # Assign properly
+
+    ycbcr_img = np.stack([output_resized, img_ycbcr[..., 1], img_ycbcr[..., 2]], axis=-1)
+    img_sr = cv2.cvtColor(ycbcr_img.astype(np.uint8), cv2.COLOR_YCrCb2RGB)
 
     st.image(image, caption="Original Image", use_container_width=True)
     st.image(img_sr, caption=f"Super-Resolved Image ({scale_factor}x)", use_container_width=True)
