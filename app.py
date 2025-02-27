@@ -28,9 +28,9 @@ class FSRCNN(nn.Module):
         return x
 
 # Load model weights from Google Drive
-weights_2x = 'https://drive.google.com/file/d/1OfdTI1M8n4A9KD7T_d32HpsMLl8edF9_/view?usp=sharing'
-weights_3x = 'https://drive.google.com/file/d/18DdiBywxky5qfsCMWG5cRbFIGnf9sgRH/view?usp=sharing'
-weights_4x = 'https://drive.google.com/file/d/1HFcVeRU01vd6pMw54grsLa2N84c67SQ0/view?usp=sharing'
+weights_2x = 'weights/fsrcnn_x2.pth'
+weights_3x = 'weights/fsrcnn_x3.pth'
+weights_4x = 'weights/fsrcnn_x4.pth'
 
 # Preprocessing functions
 def convert_rgb_to_ycbcr(img):
