@@ -75,7 +75,8 @@ if uploaded_file is not None:
         img_y = img_y.to(device)
         output = model(img_y).cpu().squeeze().numpy() * 255.
 
-    img_ycbcr[..., 0] = output
+    output_resized = cv2.resize(output, (img_ycbcr.shape[1], img_ycbcr.shape[0]), interpolation=cv2.INTER_CUBIC)
+    img_ycbcr[..., 0] = output_resized
     img_sr = convert_ycbcr_to_rgb(img_ycbcr)
 
     st.image(image, caption="Original Image", use_column_width=True)
