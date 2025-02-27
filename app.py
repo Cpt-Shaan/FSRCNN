@@ -54,6 +54,11 @@ uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
+    image = np.array(image)
+    # Ensure the image is in the correct color format (RGB)
+    if image.shape[-1] == 4:  # If image has an alpha channel, remove it
+        image = image[:, :, :3]
+        
     img_ycbcr = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)  # Convert from RGB to YCbCr
     img_y = img_ycbcr[..., 0].astype(np.float32) / 255.0  # Normalize Y
     h, w = img_y.shape[-2:]
