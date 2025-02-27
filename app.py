@@ -54,8 +54,8 @@ uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    img_ycbcr = convert_rgb_to_ycbcr(image)
-    img_y = img_ycbcr[..., 0] / 255.
+    img_ycbcr = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)  # Convert from RGB to YCbCr
+    img_y = img_ycbcr[..., 0].astype(np.float32) / 255.0  # Normalize Y
     h, w = img_y.shape[-2:]
     img_y = torch.tensor(img_y).unsqueeze(0).unsqueeze(0).float()
     img_y = F.interpolate(img_y, size=(h * scale_factor, w * scale_factor), mode="bicubic", align_corners=False)
@@ -77,10 +77,9 @@ if uploaded_file is not None:
 
     h, w = img_ycbcr.shape[:2]  # Get original image height & width
     output_resized = cv2.resize(output, (w, h), interpolation=cv2.INTER_CUBIC)  
-    img_ycbcr[..., 0] = output_resized  # Assign properly
+    img_ycbcr[...,0] = (output_resized).clip(0, 255)  # Assign properly
 
-    ycbcr_img = np.stack([output_resized, img_ycbcr[..., 1], img_ycbcr[..., 2]], axis=-1)
-    img_sr = cv2.cvtColor(ycbcr_img.astype(np.uint8), cv2.COLOR_YCrCb2RGB)
+    img_sr = cv2.cvtColor(img_ycbcr.astype(np.uint8), cv2.COLOR_YCrCb2RGB)
 
     st.image(image, caption="Original Image", use_container_width=True)
     st.image(img_sr, caption=f"Super-Resolved Image ({scale_factor}x)", use_container_width=True)
