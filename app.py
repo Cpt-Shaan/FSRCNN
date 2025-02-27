@@ -79,5 +79,5 @@ if uploaded_file is not None:
     img_ycbcr[..., 0] = output_resized
     img_sr = convert_ycbcr_to_rgb(img_ycbcr)
 
-    st.image(image, caption="Original Image", use_column_width=True)
-    st.image(img_sr, caption=f"Super-Resolved Image ({scale_factor}x)", use_column_width=True)
+    st.image(image, caption="Original Image", use_container_width=True)
+    st.image(img_sr, caption=f"Super-Resolved Image ({scale_factor}x)", use_container_width=True)
